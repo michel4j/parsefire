@@ -5,6 +5,10 @@ description = "Python Package for consistent data mining from unstructured text 
 authors = ["Michel Fodje <michel4j@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include = "parsefire", from = "." },
+    { include = "parsefire.*", from = "." },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
