@@ -6,8 +6,8 @@ authors = ["Michel Fodje <michel4j@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-    { include = "parsefire", from = "." },
-    { include = "parsefire.*", from = "." },
+    { include = "parsefire"},
+    { include = "tests", format = "sdist" },
 ]
 
 [tool.poetry.dependencies]
