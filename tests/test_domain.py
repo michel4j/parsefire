@@ -23,6 +23,25 @@ class TestParseText(unittest.TestCase):
         result = parse_text(specs, text)
         self.assertEqual(result, {'age': 25, 'name': 'John Doe'})
 
+    def test_domain_list(self):
+        specs = {
+            'domain': ["Inside", "Outside"],
+            'fields': [
+                "Age: <int:age>",
+                "Name: <str:name>"
+            ]
+        }
+        text = (
+            "Inside:\n"
+            "Age: 25\n"
+            "Name: John Doe\n"
+            "Outside:\n"
+            "Age: 30\n"
+            "Name: Jane Doe"
+        )
+        result = parse_text(specs, text)
+        self.assertEqual(result, {'age': 25, 'name': 'John Doe'})
+
     def test_parse_text_with_domains(self):
         specs = {
             'domains': r"Inside:(.*?)(?=Outside|$)",
@@ -34,13 +53,12 @@ class TestParseText(unittest.TestCase):
         text = (
             "Inside:\n"
             "Age: 25\n"
-            "Name: John Doe\n"
             "Outside:\n"
             "Age: 36\n"
             "Name: Jack Doe"
             "Inside:\n"
-            "Age: 30\n"
-            "Name: Jane Doe"
+            "Name: John Doe"
+            "Outside:\n"
         )
         result = parse_text(specs, text)
         self.assertEqual(result, {'age': 25, 'name': 'John Doe'})

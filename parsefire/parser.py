@@ -232,10 +232,21 @@ def parse_text(specs: dict, text: str) -> dict:
     :return: nested dictionary of key-value pairs
     """
 
-    if specs.get('domains'):
-        sub_data = '\n'.join(re.findall(specs["domains"], text, re.DOTALL))
-    elif specs.get('domain'):
-        m = re.search(specs["domain"], text, re.DOTALL)
+    if 'domains' in specs:
+        domain, multi = specs['domains'], True
+    elif 'domain' in specs:
+        domain, multi = specs['domain'], False
+    else:
+        domain, multi = None, False
+
+    if isinstance(domain, list):
+        start, end = domain
+        domain = f'{re.escape(start)}(.*?){re.escape(end)}'
+
+    if domain and multi:
+        sub_data = '\n'.join(re.findall(domain, text, re.DOTALL))
+    elif domain:
+        m = re.search(domain, text, re.DOTALL)
         if m:
             sub_data = m.group(0)
         else:

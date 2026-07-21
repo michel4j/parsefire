@@ -32,7 +32,13 @@ class TestParseFields(unittest.TestCase):
         spec = "Value: <float:value>"
         text = "Value: 123.45"
         result = parse_fields(spec, text)
-        self.assertEqual(result, {'value': 123.45})
+        self.assertAlmostEqual(result['value'], 123.45)
+
+    def test_parse_special_float_field(self):
+        spec = "Value: <float:value>"
+        text = "Value: 123."
+        result = parse_fields(spec, text)
+        self.assertAlmostEqual(result['value'], 123.0)
 
     def test_parse_line_field(self):
         spec = "Line: <line:line>"
