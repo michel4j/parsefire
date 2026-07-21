@@ -1,25 +1,29 @@
-[tool.poetry]
+[project]
 name = "parsefire"
-version = "2024.9.1"
-description = "Python Package for consistent data mining from unstructured text documents."
-authors = ["Michel Fodje <michel4j@gmail.com>"]
+dynamic = ["version"]
 license = "MIT"
-readme = "README.md"
-packages = [
-    { include = "parsefire"},
-    { include = "tests", format = "sdist" },
+description = "Python Package for consistent data mining from unstructured text documents."
+keywords = ["Data mining", "Text Parsing"]
+authors = [
+    {name = "Michel Fodje", email = "michel.fodje@lightsource.ca" },
 ]
+readme = "README.md"
 classifiers = [
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
 ]
 
 [project.urls]
-homepage = "https://github.com/michel4j/parsefire"
+Homepage = "https://github.com/michel4j/parsefire"
+Issues = "https://github.com/michel4j/parsefire/issues"
+
+[tool.poetry]
+packages = [
+    { include = "parsefire", from = "." },
+    { include = "tests", format = "sdist" },
+]
+version = "0.0.0"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -27,5 +31,13 @@ PyYAML = "^6.0.0"
 
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+format = "{base}.{revision}{distance}"
