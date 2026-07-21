@@ -241,7 +241,7 @@ def parse_text(specs: dict, text: str) -> dict:
 
     if isinstance(domain, list):
         start, end = domain
-        domain = f'{re.escape(start)}(.*?){re.escape(end)}'
+        domain = rf'{re.escape(start)}(.*?){re.escape(end)}'
 
     if domain and multi:
         sub_data = '\n'.join(re.findall(domain, text, re.DOTALL))
